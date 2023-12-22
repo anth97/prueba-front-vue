@@ -33,7 +33,7 @@ async function getBalance() {
       if (err.response?.status === 401) {
         router.push("/401");
       } else {
-        errorMessage.value = 'Ocurrio un error al obtener el saldo, inténtelo nuevamente en uns minutos.';
+        errorMessage.value = 'Ocurrio un error al obtener el saldo, inténtelo nuevamente en unos minutos.';
       }
       loadData.value = true;
     });
