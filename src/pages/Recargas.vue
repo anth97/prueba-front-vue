@@ -13,6 +13,7 @@ import { ListProvidersInterface } from "../interface/providers.interface";
 import {
   InformationCircleIcon,
   ArrowPathIcon,
+  StarIcon,
   HeartIcon,
 } from "@heroicons/vue/24/solid";
 
@@ -32,10 +33,11 @@ const listaButton = [
 ];
 
 const providerService = useProviders();
-
 const listProviders = ref<ListProvidersInterface[]>([]);
 const loadData = ref<boolean>(false);
 const errorMessage = ref<string>("");
+
+const searchInput = ref<HTMLInputElement | null>(null);
 
 async function getProviders() {
   await providerService
@@ -53,6 +55,18 @@ async function getProviders() {
       }
       loadData.value = true;
     });
+}
+
+function searchProviders() {
+  const termSearch: string = String(searchInput.value);
+  if (termSearch) {
+    const result = listProviders.value.filter((provider) => {
+      const company = provider.company.toLowerCase();
+      const searchTerm = termSearch.toLowerCase();
+      return company.includes(searchTerm);
+    });
+    listProviders.value = result;
+  }
 }
 
 getProviders();
@@ -73,6 +87,8 @@ getProviders();
             type="text"
             placeholder="ej. Culqui"
             class="border rounded border-gray-200 h-12 p-3 bg-gray-200"
+            v-model="searchInput"
+            @input="searchProviders"
           />
         </div>
 
@@ -80,10 +96,12 @@ getProviders();
           <button
             v-for="button in listaButton"
             :key="button.title"
-            class="px-5 py-1 text-sm border leading-5 rounded-full min-w-auto
-            border-gray-400 text-gray-800 flex flex-row
-             focus:ring-2  focus:ring-orange-500 focus:border-transparent"
+            class="px-5 py-1 text-sm border leading-5
+            rounded-full min-w-auto border-gray-400
+            items-center
+            text-gray-800 flex flex-row focus:ring-2 focus:ring-orange-500 focus:border-transparent"
           >
+            <StarIcon class="w-3 h-3 mr-1" />
             {{ button.title }}
           </button>
         </div>
