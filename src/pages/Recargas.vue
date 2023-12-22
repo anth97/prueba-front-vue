@@ -66,6 +66,8 @@ function searchProviders() {
       return company.includes(searchTerm);
     });
     listProviders.value = result;
+  } else {
+    getProviders();
   }
 }
 
