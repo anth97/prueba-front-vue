@@ -17,5 +17,5 @@ yarn build
 ## Url de Despliegue
 Actualmente se encuentra alojado en Netlify
 ```bash
-https://6585c67c2ac877ade1dd92de--sweet-faloodeh-511f98.netlify.app/#/
+https://sweet-faloodeh-511f98.netlify.app
 ```
